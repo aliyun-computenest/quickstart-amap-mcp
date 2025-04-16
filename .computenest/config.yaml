@@ -1,0 +1,103 @@
+Service:
+  RegionId: cn-hangzhou
+  DeployType: ros
+  DeployMetadata:
+    ServiceInstanceNameRule:
+      Prefix: amap-
+    SupplierDeployMetadata:
+      ArtifactRelation:
+        'centos_7':
+          ArtifactId: ${Artifact.EcsImage.ArtifactId}
+          ArtifactVersion: ${Artifact.EcsImage.ArtifactVersion}
+    TemplateConfigs:
+      - Name: 单机版
+        Url: 'ros_templates/template.yaml'
+  ServiceType: private
+  ServiceInfo:
+    Locale: zh-CN
+    ShortDescription: amap server deploy
+    Image: 'resources/icons/service_logo.png'
+Artifact:
+  EcsImage:
+    ArtifactType: EcsImage
+    ArtifactName: amap
+    Description: amap
+    ArtifactProperty:
+      RegionId: ${ImageBuilder.EcsImage.RegionId}
+      ImageId: ${ImageBuilder.EcsImage.SourceImageId}
+ImageBuilder:
+  EcsImage:
+    RegionId: ap-southeast-1
+    SourceImageId: aliyun_3_x64_20G_alibase_20240819.vhd
+    SystemDiskSize: 40
+    InstanceType: ecs.c6.large
+    InternetMaxBandwidthOut: 10
+    CommandType: RunShellScript
+    Timeout: 10800
+    Tags: [ ]
+    CommandContent: |-
+        # 安装docker-ce
+        yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+        yum makecache
+        yum install -y wget curl unzip git jq
+        yum install -y docker-ce
+        sudo systemctl enable --now docker.service
+
+        # 创建mcp目录，用于存放mcp配置文件
+        mkdir -p /root/mcp && cd mcp
+        # 安装OpenWebUI
+        cat > /root/mcp/docker-compose.yaml << "EOF"
+        services:
+          open-webui:
+            image: ghcr.io/open-webui/open-webui:latest
+            container_name: open-webui
+            volumes:
+              - open-webui:/app/backend/data
+            ports:
+              - 8080:8080
+            extra_hosts:
+              - host.docker.internal:host-gateway
+            restart: unless-stopped
+            environment:
+              - 'ENABLE_OPENAI_API=True'
+              - 'ENABLE_OLLAMA_API=False'
+              - 'OPENAI_API_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1'
+              - 'OPENAI_API_KEY=${OPENAI_API_KEY}'
+        volumes:
+          ollama: {}
+          open-webui: {}
+        EOF
+
+        docker compose up -d
+
+        # 安装python
+        yum install python3.11 -y
+        # 创建python虚拟环境
+        python3.11 -m venv venv
+        # 启动虚拟环境
+        source venv/bin/activate
+        # 安装mcpo
+        pip install mcpo
+        # 下载nvm
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash
+        # 配置nvm
+        export NVM_DIR="$HOME/.nvm"
+        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+        [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+        # 安装node，以node版本22为例
+        nvm install 22
+        # 安装高德MCP server
+        npm install @amap/amap-maps-mcp-server
+        cat > /root/mcp/config.json << EOF
+        {
+          "mcpServers": {
+            "amap-maps": {
+              "command": "npx",
+              "args": ["-y", "@amap/amap-maps-mcp-server"],
+              "env": {
+                "AMAP_MAPS_API_KEY": ""
+              }
+            }
+          }
+        }
+        EOF
