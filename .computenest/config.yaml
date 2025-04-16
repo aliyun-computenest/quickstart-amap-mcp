@@ -2,23 +2,162 @@ Service:
   RegionId: cn-hangzhou
   DeployType: ros
   DeployMetadata:
-    ServiceInstanceNameRule:
-      Prefix: amap-
     SupplierDeployMetadata:
       ArtifactRelation:
-        'centos_7':
-          ArtifactId: ${Artifact.EcsImage.ArtifactId}
-          ArtifactVersion: ${Artifact.EcsImage.ArtifactVersion}
+        centos_7:
+          ArtifactId: ${Artifact.Artifact.ArtifactId}
+          ArtifactVersion: ${Artifact.Artifact.ArtifactVersion}
+      SupplierTemplateConfigs:
+        - Name: 单机版
+          Url: 
+            https://service-info-private.oss-cn-hangzhou.aliyuncs.com/1853370294850618/template/17921e3e-90c5-4282-82aa-1cc2e3250864.json?Expires=1744874915&OSSAccessKeyId=LTAI5tCYphFhocJemeMWmXst&Signature=JmZB66mCA3CXB%2B7UXH7Uo9xIoz4%3D
+          PredefinedParameters:
+            - Name: 热卖套餐，特价99元/年（限购1台）
+              Parameters:
+                EcsInstanceType:
+                  - ecs.e-c1m1.large
+                SystemDiskCategory: cloud_essd_entry
+                SystemDiskSize: 40
+                InternetChargeType: PayByBandwidth
+                InternetMaxBandwidthOut: 3
+                PayPeriodUnit: Month
+                PayPeriod: 12
+                PayType: PrePaid
+              OrderList:
+                - EcsInstanceType
+                - SystemDiskCategory
+                - SystemDiskSize
+                - InternetChargeType
+                - InternetMaxBandwidthOut
+                - PayPeriodUnit
+                - PayPeriod
+                - PayType
+              Type: Normal
+              Description: 固定带宽不限流量，新老同享，上云首选！
+            - Name: 尝鲜套餐，只需0.3元/小时
+              Parameters:
+                EcsInstanceType:
+                  - ecs.e-c1m1.large
+                SystemDiskCategory: cloud_essd_entry
+                SystemDiskSize: 40
+                InternetChargeType: PayByBandwidth
+                InternetMaxBandwidthOut: 3
+                PayType: PostPaid
+              OrderList:
+                - EcsInstanceType
+                - SystemDiskCategory
+                - SystemDiskSize
+                - InternetChargeType
+                - InternetMaxBandwidthOut
+                - PayPeriodUnit
+                - PayPeriod
+                - PayType
+              Type: Normal
+              Description: 可用300元学生专属代金券抵扣！
+            - Name: 自定义套餐
+              Parameters: {}
+              OrderList:
+                - EcsInstanceType
+                - SystemDiskCategory
+                - SystemDiskSize
+                - InternetChargeType
+                - InternetMaxBandwidthOut
+                - PayPeriodUnit
+                - PayPeriod
+                - PayType
+              Type: Custom
+          AllowedRegions:
+            - cn-beijing
+            - cn-hangzhou
+            - cn-heyuan
     TemplateConfigs:
       - Name: 单机版
-        Url: 'ros_templates/template.yaml'
+        Url: ros_templates/template1.yaml
+        AllowedRegions:
+          - cn-beijing
+          - cn-hangzhou
+          - cn-heyuan
+        PredefinedParameters:
+          - Name: 热卖套餐，特价99元/年（限购1台）
+            Parameters:
+              EcsInstanceType:
+                - ecs.e-c1m1.large
+              SystemDiskCategory: cloud_essd_entry
+              SystemDiskSize: 40
+              InternetChargeType: PayByBandwidth
+              InternetMaxBandwidthOut: 3
+              PayPeriodUnit: Month
+              PayPeriod: 12
+              PayType: PrePaid
+            OrderList:
+              - EcsInstanceType
+              - SystemDiskCategory
+              - SystemDiskSize
+              - InternetChargeType
+              - InternetMaxBandwidthOut
+              - PayPeriodUnit
+              - PayPeriod
+              - PayType
+            Type: Normal
+            Description: 固定带宽不限流量，新老同享，上云首选！
+          - Name: 尝鲜套餐，只需0.3元/小时
+            Parameters:
+              EcsInstanceType:
+                - ecs.e-c1m1.large
+              SystemDiskCategory: cloud_essd_entry
+              SystemDiskSize: 40
+              InternetChargeType: PayByBandwidth
+              InternetMaxBandwidthOut: 3
+              PayType: PostPaid
+            OrderList:
+              - EcsInstanceType
+              - SystemDiskCategory
+              - SystemDiskSize
+              - InternetChargeType
+              - InternetMaxBandwidthOut
+              - PayPeriodUnit
+              - PayPeriod
+              - PayType
+            Type: Normal
+            Description: 可用300元学生专属代金券抵扣！
+          - Name: 自定义套餐
+            Parameters: {}
+            OrderList:
+              - EcsInstanceType
+              - SystemDiskCategory
+              - SystemDiskSize
+              - InternetChargeType
+              - InternetMaxBandwidthOut
+              - PayPeriodUnit
+              - PayPeriod
+              - PayType
+            Type: Custom
+        ArchitectureDiagramUrl: 
+          https://service-info-private.oss-cn-hangzhou.aliyuncs.com/1853370294850618/architecture/架构图.jpg?Expires=1744874915&OSSAccessKeyId=LTAI5tCYphFhocJemeMWmXst&Signature=m9RTtzHqf%2F4VljOu%2BJgixENOJCQ%3D
+        DeployScene: ECS
+    NetworkMetadata:
+      EnablePrivateVpcConnection: false
+      EnableReversePrivateVpcConnection: false
+    ServiceInstanceNameRule:
+      Prefix: amap-
+      UseDefaultValue: false
+  OperationMetadata:
+    SupportBackup: false
+    PrometheusConfigMap:
+      单机版:
+        EnablePrometheus: false
   ServiceType: private
   ServiceInfo:
-    Locale: zh-CN
-    ShortDescription: amap server deploy
-    Image: 'resources/icons/service_logo.png'
+    - Agreements: []
+      Image: resources/icons/service_logo_zh-CN.png
+      Locale: zh-CN
+      Name: Open WebUI高德MCP
+      ShortDescription: 使用AI模型，引入高德地图MCP服务，制作AI Agent，可以理解用户意图，同时使用高德地图精确的地理位置信息、天气查询能力、骑行/步行/驾车路径规划能力、周边搜索等能力，为用户提供精确、真实的出行、游玩建议。
+      Softwares: []
+  ShareType: Public
+  ApprovalType: Manual
 Artifact:
-  EcsImage:
+  Artifact:
     ArtifactType: EcsImage
     ArtifactName: amap
     Description: amap
