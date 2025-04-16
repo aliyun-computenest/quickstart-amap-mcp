@@ -59,7 +59,7 @@ Open WebUI面板在阿里云上的费用主要涉及：
 
 ## 在open webui前端设置
 1. 点击“设置”，点击“工具”。
-2. 如果您是使用ECS的公网IP地址，在填写工具的地址时，应填写http://<ECS IP地址>:8000/amap-maps，而非localhost
+2. 如果您是使用ECS的公网IP地址，在填写工具的地址时，应填写http://您的ECS IP地址:8000/amap-maps（例如：如果您的IP地址是12.123.123.123，则应填写http://12.123.123.123:8000/amap-maps），而非localhost
     ![login.png](deploy_4.png)
 
 3. 如果您设置了使用域名访问您的open webui网站。例如，您使用了https://example.com 访问您的Open WebUI网站，需要对您的nginx配置文件（在/etc/nginx/sites-available这个目录）做修改。在nginx配置文件中，增加如下内容。
