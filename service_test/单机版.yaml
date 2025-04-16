@@ -1,0 +1,15 @@
+caseId: stc-1b9e3133f3bb414799a1
+parameters:
+  BaiLianApiKey: Please fill in
+  EcsInstanceType: $[iact3-auto]
+  GaoDeApiKey: Please fill in
+  InstancePassword: $[iact3-auto]
+  InternetChargeType: Please fill in
+  InternetMaxBandwidthOut: Please fill in
+  PayType: PostPaid
+  SystemDiskCategory: Please fill in
+  SystemDiskSize: Please fill in
+  VSwitchCidrBlock: 192.168.1.0/24
+  VpcCidrBlock: 192.168.0.0/16
+  VpcOption: NewVPC
+templateName: 单机版
