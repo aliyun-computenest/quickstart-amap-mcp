@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="计算巢是阿里云开放给企业应用服务商的服务管理平台。服务商能够在计算巢上发布私有化部署服务，为其客户提供云上软件一键部署的能力；同时也支持全托管模式的服务，赋能服务商托管其客户资源。">
+  <title>Index en - Aliyun 计算巢 x Demo</title>
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  
+
+  
+
+  
+  
+
+  
+    <script src="../search/main.js"></script>
+  
+
+  
+
+  <script src="../js/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="nav">
+      <div class="nav-inner">
+        <div class="logo">
+          <img src="./img/logo-2x.png">
+        </div>
+        <div class="nav-list">
+          <ul>
+          
+              <li><a href="#introduction-to-open-webui-and-refined">Introduction to Open WebUI and Refined</a></li>
+              
+          
+              <li><a href="#introduction-to-gaud-mcp-server">Introduction to Gaud MCP Server</a></li>
+              
+          
+              <li><a href="#billing-description">Billing Description</a></li>
+              
+          
+              <li><a href="#permissions-required-for-ram-accounts">Permissions required for RAM accounts</a></li>
+              
+          
+              <li><a href="#deployment-services">Deployment Services</a></li>
+              
+          
+              <li><a href="#set-on-the-front-end-of-open-webui">set on the front end of open webui</a></li>
+              
+          
+              <li><a href="#proxy-settings-for-mcp-server">Proxy settings for MCP server</a></li>
+              
+          
+              <li><a href="#ssl-configuration">SSL Configuration</a></li>
+              
+          
+              <li><a href="#security-headers-optional-but-recommended">Security headers (optional but recommended)</a></li>
+              
+          
+              <li><a href="#proxy-settings">Proxy settings</a></li>
+              
+          
+              <li><a href="#websocket-support-if-needed">WebSocket support (if needed)</a></li>
+              
+          
+              <li><a href="#proxy-settings-for-mcp-server_1">Proxy settings for MCP server</a></li>
+              
+          
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="content theme-github">
+      
+      <div class="content-inner">        
+        
+        <h2 id="introduction-to-open-webui-and-refined">Introduction to Open WebUI and Refined</h2>
+<p>Open WebUI is a feature-rich and user-friendly self-hosted web user interface (WebUI) designed to interact with large language models (LLMs), specifically those supported by Ollama or services compatible with the OpenAI API. Open WebUI provides the ability to run completely offline, which means that users can talk to models without an internet connection, which is especially important for data privacy and security-sensitive application scenarios.
+Here are some of the key features of Open WebUI:
+Intuitive interface: Open WebUI's interface is inspired by ChatGPT, providing a clear and user-friendly chat interface that makes interaction with large language models intuitive.
+2. Extensibility: This platform is extensible, meaning that it can be customized and enhanced by adding new plug-ins or features to adapt to different usage scenarios and needs.
+3. Offline operation: Open WebUI supports completely offline operation, does not rely on network connection, and is suitable for use on any device, whether on an airplane or in remote areas.
+Compatibility: It is compatible with multiple LLM Runners, including Ollama and OpenAI APIs, which allows users to select and run different language models from multiple sources.
+Self-hosted: Users can deploy Open WebUI on their own servers or devices, which provides greater protection for data privacy and control.
+Markdown and LaTeX support: Open WebUI provides comprehensive Markdown and LaTeX functionality that allows users to generate rich text output, which is useful in scientific and academic communication.
+Local RAG integration: The Retrieval Enhanced Generation (RAG) feature allows the model to leverage locally stored data for more in-depth and specific responses, enhancing chat interactions.
+Tongyi Bailian is an advanced multi-modal pre-training model launched by Alibaba Cloud. It combines natural language processing (NLP) and computer vision (CV) techniques to understand and generate many types of data, such as text, images, and video. The design goal of Tongyi Bailian is to provide developers and enterprises with a powerful tool for more efficient and intelligent data processing and analysis in various application scenarios.</p>
+<h2 id="introduction-to-gaud-mcp-server">Introduction to Gaud MCP Server</h2>
+<p>In order to realize better interaction between LBS service and LLM, Gaud Map MCP Server now covers 12 core service interfaces and provides map services covering all scenes, including geocoding, inverse geocoding, IP positioning, weather query, cycling path planning, walking path planning, driving path planning, bus path planning, distance measurement, keyword search, peripheral search, detail search, etc. In order to further improve the access efficiency and experience of developers, Gaud Map Open Platform provides developers with a general-level SSE protocol MCP service solution.</p>
+<h2 id="billing-description">Billing Description</h2>
+<p>The cost of the Open Web UI panel on Alibaba Cloud is mainly related:
+* Specifications of the selected GPU cloud server
+* Disk Capacity
+* Internet Bandwidth</p>
+<p>Billing method: pay by volume (hour) or package year and month
+The estimated cost can be seen in real time when the instance is created.</p>
+<p>Refined model call cost:
+* When you first open the Hundred Refinement, the platform will automatically issue you the exclusive free quota for newcomers of each model. For details, please refer to <a href="https://help.aliyun.com/zh/model-studio/new-free-quota?spm=a2c4g.11186623.help-menu-2400256.d_4_1.6dea55efFQCijR#view-quota">Hundred Refinement Newcomer Free Quota</a>.</p>
+<h2 id="permissions-required-for-ram-accounts">Permissions required for RAM accounts</h2>
+<table>
+<thead>
+<tr>
+<th>Permission policy name</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AliyunECSFullAccess</td>
+<td>Permissions to manage ECS instances</td>
+</tr>
+<tr>
+<td>AliyunVPCFullAccess</td>
+<td>Permissions to manage a VPC</td>
+</tr>
+<tr>
+<td>AliyunROSFullAccess</td>
+<td>Manage permissions for Resource Orchestration Service (ROS)</td>
+</tr>
+<tr>
+<td>AliyunComputeNestUserFullAccess</td>
+<td>Manage user-side permissions for the compute nest service (ComputeNest)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="deployment-services">Deployment Services</h2>
+<ol>
+<li>Click <a href="https://computenest.console.aliyun.com/service/palworld/deploy?ServiceId=service-c0552c20597a4c62b168">Deployment Link</a> to enter the service instance deployment interface, and fill in the parameters according to the interface prompt.
+<img alt="" src="../images-en/deploy_1.jpg" /></li>
+<li>The deployment parameters need to be refined API-KEY,<em> * <a href="https://bailian.console.aliyun.com/?spm = 5176.24779694.0.0.27304 d22k6ajsz &amp; tab = model#/api-key">Log in to refined console</a></em> <em>, click * * Create My API-KEY * </em>, and copy it for later use. API-KEY is personal confidential information, do not disclose. If Bailian has not been opened, please click <a href="https://help.aliyun.com/zh/model-studio/getting-started/first-api-call-to-qwen?spm=a2c4g.11186623.help-menu-2400256.d_0_1_0.5a06b0a8lg5WY2#5058e161041ps">Open Bailian Model Service</a> to complete the opening.
+<img alt="" src="../images-en/bailian.jpg" /></li>
+</ol>
+<p>Get Gaud Map API KEY: Enter <a href="https://lbs.amap.com/">Gaud Open Platform</a>, register and get Gaud API KEY for standby. Gaud offered a free quota.</p>
+<ol>
+<li>After confirming the order is completed, click <strong>Create Now</strong>.</li>
+<li>
+<p>After the deployment is completed, you can start using the service. Enter the service instance details and click Address to access.
+<img alt="result.png" src="../images-en/result.png" /></p>
+</li>
+<li>
+<p>Register an account and log in to the service.
+<img alt="login.png" src="../images-en/login.jpg" /></p>
+</li>
+</ol>
+<h2 id="set-on-the-front-end-of-open-webui">set on the front end of open webui</h2>
+<ol>
+<li>Click "Settings" and click "Tools".</li>
+<li>
+<p>If you are using the public IP address of ECS, when filling in the address of the tool, you should fill in http:// your ECS IP address: 8000/amap-maps (for example, if your IP address is 12.123.123.123, you should fill in http:// 12.123.123.123:8000/amap-maps) instead of localhost
+<img alt="login.png" src="../images-en/deploy_4.png" /></p>
+</li>
+<li>
+<p>If you set up to use the domain name to access your open webui website. For example, if you use https://example.com to access your Open WebUI website, you need to make changes to your nginx configuration file (in/etc/nginx/sites-available this directory). In the nginx configuration file, add the following content.</p>
+</li>
+</ol>
+<p>'''text</p>
+<h1 id="proxy-settings-for-mcp-server">Proxy settings for MCP server</h1>
+<p>location /mcp/ {
+proxy_pass http://localhost:8000 /;
+proxy_set_header Host $host;
+proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+proxy_set_header X-Forwarded-Proto $scheme;</p>
+<p>proxy_http_version 1.1;
+proxy_set_header Upgrade $http_upgrade;
+proxy_set_header Connection "upgrade ";
+}
+'''</p>
+<p>The complete configuration file is below. Note: Please replace example.com in the following file with your own domain name.
+'''text
+server {
+listen 443 ssl;
+server_name example.com www.example.com;</p>
+<h1 id="ssl-configuration">SSL Configuration</h1>
+<p>ssl_certificate /etc/nginx/ssl/example.com.pem;
+ssl_certificate_key /etc/nginx/ssl/example.com.key;</p>
+<h1 id="security-headers-optional-but-recommended">Security headers (optional but recommended)</h1>
+<p>add_header Strict-Transport-Security "max-age=31536000" always;
+add_header X-Content-Type-Options nosniff;
+add_header X-Frame-Options "SAMEORIGIN ";
+add_header X-XSS-Protection "1; mode=block ";</p>
+<h1 id="proxy-settings">Proxy settings</h1>
+<p>location / {
+proxy_pass http://localhost:8080; # Your service running on port 3000
+proxy_set_header Host $host;
+proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+proxy_set_header X-Forwarded-Proto $scheme;</p>
+<h1 id="websocket-support-if-needed">WebSocket support (if needed)</h1>
+<p>proxy_http_version 1.1;
+proxy_set_header Upgrade $http_upgrade;
+proxy_set_header Connection "upgrade ";
+}</p>
+<h1 id="proxy-settings-for-mcp-server_1">Proxy settings for MCP server</h1>
+<p>location /mcp/ {
+proxy_pass http://localhost:8000 /;
+proxy_set_header Host $host;
+proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+proxy_set_header X-Forwarded-Proto $scheme;</p>
+<p>proxy_http_version 1.1;
+proxy_set_header Upgrade $http_upgrade;
+proxy_set_header Connection "upgrade ";
+}
+}
+'''</p>
+<ol>
+<li>
+<p>Save the nginx configuration file. Restart nginx.
+'''Shell
+sudo nginx -t # Test the configuration
+sudo systemctl restart nginx
+'''</p>
+</li>
+<li>
+<p>In the Open WebUI front end, configure as follows. The symbol for the tool appears on the page, and the model suggests the qwen-plus.
+<img alt="image" src="../images-en/img_1.png" /></p>
+</li>
+<li>
+<p>It can be found that when talking with AI, the MCP service of Gaud Map is called.
+<img alt="image" src="../images-en/img_2.png" /></p>
+</li>
+</ol>
+        
+      </div>
+
+      <div class="copyrights">© 2009-2022 Aliyun.com 版权所有</div>
+    </div>
+  </div>
+  
+  <!--
+  MkDocs version      : 1.6.1
+  Docs Build Date UTC : 2025-12-04 03:12:17.423072+00:00
+  -->
+</body>
+</html>
